@@ -1,32 +1,43 @@
+local parsers = {
+    "typescript",
+    "tsx",
+    "javascript",
+    "json",
+    "html",
+    "css",
+    "markdown",
+    "markdown_inline",
+    "sql",
+    "php",
+    "yaml",
+    "bash",
+    "python",
+    "lua",
+    "vim",
+    "vimdoc",
+    "query",
+    "regex",
+    "diff",
+    "gitcommit",
+}
+
 return {
-	"nvim-treesitter/nvim-treesitter",
-	dependencies = {
-		"RRethy/nvim-treesitter-textsubjects",
-		"nvim-treesitter/nvim-treesitter-textobjects",
-	},
-	build = ":TSUpdate",
-	-- event = { "BufReadPre", "BufNewFile" },
+    "nvim-treesitter/nvim-treesitter",
+    branch = "main",
+    lazy = false, -- does not support lazy loading
+    build = ":TSUpdate",
 
-	config = function()
-		require("nvim-treesitter.configs").setup({
-			ensure_installed = "all",
-			highlight = { enable = true },
-			indent = { enable = true },
-			matchup = { enable = true },
+    config = function()
+        require("nvim-treesitter").install(parsers)
 
-			textsubjects = {
-				enable = true,
-				prev_selection = ";",
-
-				keymaps = {
-					["v"] = "textsubjects-smart",
-					["."] = "textsubjects-container-outer",
-					["i."] = {
-						"textsubjects-container-inner",
-						desc = "select inside containers (classes, functions, etc.)",
-					},
-				},
-			},
-		})
-	end,
+        vim.api.nvim_create_autocmd("FileType", {
+            group = vim.api.nvim_create_augroup("Treesitter", { clear = true }),
+            desc = "Treesitter highlighting and indentation",
+            callback = function(ev)
+                if pcall(vim.treesitter.start, ev.buf) then
+                    vim.bo[ev.buf].indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
+                end
+            end,
+        })
+    end,
 }

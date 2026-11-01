@@ -1,39 +1,28 @@
+local objects = {
+    af = "@function.outer",
+    ["if"] = "@function.inner",
+    ac = "@class.outer",
+    ic = "@class.inner",
+}
+
 return {
-enabled = false,
-	"nvim-treesitter/nvim-treesitter-textobjects",
-	lazy = true,
+    "nvim-treesitter/nvim-treesitter-textobjects",
+    branch = "main",
+    event = "VeryLazy",
 
-	opts = {
-		textobjects = {
-			select = {
-				enable = true,
-				lookahead = true,
-				keymaps = {
-					["a="] = { query = "@assignment.outer", desc = "Select outer part of an assignment" },
-					["i="] = { query = "@assignment.inner", desc = "Select inner part of an assignment" },
-					["l="] = { query = "@assignment.lhs", desc = "Select left hand side of an assignment" },
-					["r="] = { query = "@assignment.rhs", desc = "Select right hand side of an assignment" },
+    opts = { select = { lookahead = true } },
 
-					["ar"] = { query = "@parameter.outer", desc = "Select outer part of a parameter/argument" },
-					["ir"] = { query = "@parameter.inner", desc = "Select inner part of a parameter/argument" },
+    config = function(_, opts)
+        require("nvim-treesitter-textobjects").setup(opts)
 
-					["ac"] = { query = "@conditional.outer", desc = "Select outer part of a conditional" },
-					["ic"] = { query = "@conditional.inner", desc = "Select inner part of a conditional" },
-
-					["al"] = { query = "@loop.outer", desc = "Select outer part of a loop" },
-					["il"] = { query = "@loop.inner", desc = "Select inner part of a loop" },
-
-					["am"] = { query = "@call.outer", desc = "Select outer part of a function call" },
-					["im"] = { query = "@call.inner", desc = "Select inner part of a function call" },
-
-					["af"] = { query = "@function.outer", desc = "Select outer part of a function definition" },
-					["if"] = { query = "@function.inner", desc = "Select inner part of a function definition" },
-				},
-			},
-		},
-	},
-
-	config = function(_, opts)
-		require("nvim-treesitter.configs").setup(opts)
-	end,
+        local select = require("nvim-treesitter-textobjects.select")
+        for lhs, query in pairs(objects) do
+            vim.keymap.set(
+                { "x", "o" },
+                lhs,
+                function() select.select_textobject(query, "textobjects") end,
+                { desc = query }
+            )
+        end
+    end,
 }
