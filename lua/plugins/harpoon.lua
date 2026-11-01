@@ -7,7 +7,7 @@ return {
 
     keys = function()
         local keys = {
-            { "<leader>a", function() require("harpoon"):list():add() end, desc = "Harpoon File" },
+            { "<leader>a", function() require("harpoon"):list():add() end, desc = "Harpoon Add File" },
             {
                 "<C-e>",
                 function()

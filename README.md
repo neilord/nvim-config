@@ -25,8 +25,10 @@ lua/config/
   autocmds.lua        global autocommands
   lazy.lua            plugin manager bootstrap
   lsp.lua             native LSP: enabled servers, diagnostics, LspAttach maps
+  theme.lua           theme picker, follows ~/.config/theme; every custom color
 lua/plugins/          one file per plugin, loaded by lazy.nvim
 lsp/                  per-server overrides, when one is needed (lsp/<server>.lua)
+KEYS.md               every keymap and the Vim essentials, opened with <leader>?
 .emmyrc.json          Lua types for this config: Neovim runtime + installed plugins
 ```
 
@@ -34,14 +36,14 @@ Lua uses `emmylua_ls`, the type checker Neovim itself uses. `lua_ls` cuts off Ne
 types (it rejects `"VimEnter"` as an autocmd event), and `.emmyrc.json` replaces lazydev.nvim.
 
 Add a plugin by adding a file to `lua/plugins/`; remove it by deleting the file.
-All custom colors live in `lua/plugins/tokyonight.lua`.
+All custom colors live in `lua/config/theme.lua`.
 
 ## Plugins
 
 | Plugin | Why |
 |---|---|
 | lazy.nvim | Plugin manager: lockfile, lazy loading, UI |
-| tokyonight.nvim | Colorscheme, night style, transparent |
+| tokyonight.nvim, catppuccin | Colorschemes, transparent; see [Themes](#themes) |
 | lualine.nvim | Statusline, styled like the tmux bar |
 | snacks.nvim | Picker, dashboard, indent guides, LazyGit float, terminal, big-file guard, import updates on file rename (only these modules are on) |
 | rainbow-delimiters.nvim | Bracket pair colors |
@@ -68,52 +70,20 @@ All custom colors live in `lua/plugins/tokyonight.lua`.
 
 ## Keymaps
 
-Leader is `Space`. Built-in Neovim defaults are not repeated here except the LSP ones, since those
-replaced custom maps.
+Leader is `Space`; pause after it and which-key shows what follows. Every key, plus the Vim motions
+worth knowing, is in [KEYS.md](KEYS.md), which `<leader>?` opens inside Neovim.
 
-| Keys | Action |
-|---|---|
-| `<leader>f` / `<leader>F` | Find files / find text |
-| `<leader>,` | Buffers |
-| `<leader>sr` `sw` `so` | Resume last search, grep word or selection, recent files |
-| `<leader>sd` `ss` `sS` | Diagnostics, document symbols, workspace symbols |
-| `<leader>sg` `sq` `sH` | Git changes, quickfix list, help pages |
-| `<leader>e` / `<leader>E` | Toggle file tree / reveal current file |
-| `<leader>a`, `<C-e>`, `<leader>1`–`4` | Harpoon: add file, menu, jump to file 1–4 |
-| `<leader>u` | Undo history (built-in `:Undotree`) |
-| `<leader>g` · `<C-/>` | LazyGit · floating terminal |
-| `]c` / `[c` | Next / previous git hunk |
-| `<leader>hs` `hr` `hp` `hb` | Stage, reset, preview, blame hunk (`hS`/`hR` whole buffer) |
-| `<leader>tb` | Toggle inline blame |
-| `gd` | Go to definition |
-| `K` · `grn` · `gra` · `grr` · `gri` · `grt` · `gO` | Hover, rename, code action, references, implementation, type definition, symbols (built-in) |
-| `[d` / `]d` · `<C-w>d` | Previous / next diagnostic, diagnostic float (built-in) |
-| `<leader>rl` · `<leader>rw` | Restart LSP · replace the word under the cursor in the file |
-| `<leader>ti` · `<leader>ts` | Toggle inlay hints · spell check |
-| `gq{motion}` | Format with conform |
-| `<leader>cc` / `<leader>cf` | Toggle / focus Claude Code |
-| `<leader>cb` · `<leader>cs` (visual) | Add buffer / send selection to Claude |
-| `<leader>ca` / `<leader>cd` | Accept / reject Claude's proposed diff |
-| `<leader>y` `Y` `d` `D` | Yank / delete to the system clipboard |
-| `<leader>p` (visual) | Paste over selection without losing the register |
-| `<leader>w` / `<leader>W` | Save / save without formatting |
-| `<leader>q` / `<leader>Q` | Quit all / force quit |
-| `<Esc>` · `<leader>h` · `<leader>lw` | Clear search highlight · toggle it · toggle line wrap |
-| `<C-h>` `<C-j>` `<C-k>` `<C-l>` | Move between windows |
-| `za` `zc` `zo` `zR` `zM` | Folds, from treesitter, all open on start (built-in) |
-| `<leader>sp` `st` `sc` `sh` `sk` | Plugins, Mason, config files, highlights, keymaps |
-| `U` · `+` / `-` | Redo · increment / decrement |
+## Themes
+
+`<leader>tt` (or `:Theme`) switches the terminal, tmux, Neovim, the prompt, lazygit, delta, bat and eza
+together: Tokyo Night, Tokyo Night Day, Catppuccin Latte, Macchiato and Mocha, or Auto, which follows
+macOS light and dark mode. The switching and every theme's colors live in `~/.config/theme` (see its
+README); here, `lua/config/theme.lua` follows the theme in use and holds Neovim's custom colors.
 
 ## Debugging
 
-| Keys | Action |
-|---|---|
-| `<F5>` · `<F10>` · `<F11>` · `<F12>` | Start/continue · step over · step into · step out |
-| `<leader>b` · `<leader>B` · `<leader>xp` | Toggle breakpoint · conditional breakpoint · log point |
-| `<leader>xc` `xo` `xi` `xu` | Same as the F-keys, for keyboards where macOS takes them |
-| `<leader>xC` · `<leader>xl` · `<leader>xq` | Run to cursor · rerun last · terminate |
-| `<leader>xe` · `<leader>xw` | Evaluate expression under cursor/selection · add it to watches |
-| `<leader>xv` · `<leader>xx` | Toggle the debug panel · clear all breakpoints |
+Keys are in [KEYS.md](KEYS.md#debugging): `<F5>` start/continue, `<F10>`–`<F12>` step,
+`<leader>b` breakpoint, the rest under `<leader>x`.
 
 `<F5>` lists the configurations for the current file type, plus any in the project's
 `.vscode/launch.json` (`"type": "node"` and `"chrome"` work as in VS Code). Built in:

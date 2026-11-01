@@ -39,7 +39,12 @@ vim.api.nvim_create_autocmd("LspAttach", {
             client.server_capabilities.hoverProvider = false -- pyright's hover is the useful one
         end
 
-        vim.keymap.set("n", "gd", vim.lsp.buf.definition, { buffer = ev.buf, desc = "Go to Definition" })
-        vim.keymap.set("n", "<leader>rl", "<cmd>lsp restart<cr>", { buffer = ev.buf, desc = "Restart LSP" })
+        local function map(mode, lhs, rhs, desc) vim.keymap.set(mode, lhs, rhs, { buffer = ev.buf, desc = desc }) end
+
+        map("n", "gd", vim.lsp.buf.definition, "Go to Definition")
+        -- leader versions of the built-in gr* maps, so they show up in which-key
+        map({ "n", "x" }, "<leader>la", vim.lsp.buf.code_action, "Code Action")
+        map("n", "<leader>ln", vim.lsp.buf.rename, "Rename Symbol")
+        map("n", "<leader>lr", "<cmd>lsp restart<cr>", "Restart LSP")
     end,
 })

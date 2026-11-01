@@ -1,7 +1,16 @@
+-- no plugin here uses netrw or the remote-plugin providers; skipping them speeds startup.
+-- Opening a directory goes to the file picker instead, see config/autocmds.lua.
+vim.g.loaded_netrw = 1
+vim.g.loaded_netrwPlugin = 1
+vim.g.loaded_python3_provider = 0
+vim.g.loaded_node_provider = 0
+vim.g.loaded_perl_provider = 0
+vim.g.loaded_ruby_provider = 0
+
 vim.opt.number = true
 vim.opt.relativenumber = true
 
-vim.opt.cursorline = true -- only the line number is highlighted, see tokyonight.lua
+vim.opt.cursorline = true -- only the line number is highlighted, see config/theme.lua
 vim.opt.signcolumn = "yes"
 vim.opt.fillchars = { eob = " " }
 vim.opt.showmode = false -- lualine shows the mode

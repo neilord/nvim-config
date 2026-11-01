@@ -1,3 +1,10 @@
+-- the middle of the bar takes its colors from the theme in use, see config/theme.lua
+local function dark() return { bg = require("config.theme").color("dark") } end
+local function divider()
+    local theme = require("config.theme")
+    return { fg = theme.color("muted"), bg = theme.color("dark") }
+end
+
 return {
     "nvim-lualine/lualine.nvim",
     dependencies = {
@@ -22,33 +29,33 @@ return {
             lualine_c = {
                 {
                     "filename",
-                    color = { bg = "#15161e" },
+                    color = dark,
                     separator = { right = "" },
                 },
             },
             lualine_x = {
                 {
                     "encoding",
-                    color = { bg = "#15161e" },
+                    color = dark,
                     separator = { left = "" },
                 },
                 {
                     function() return "" end,
-                    color = { fg = "#a9b1d6", bg = "#15161e" },
+                    color = divider,
                     padding = 0,
                 },
                 {
                     "fileformat",
-                    color = { bg = "#15161e" },
+                    color = dark,
                 },
                 {
                     function() return "" end,
-                    color = { fg = "#a9b1d6", bg = "#15161e" },
+                    color = divider,
                     padding = 0,
                 },
                 {
                     "filetype",
-                    color = { bg = "#15161e" },
+                    color = dark,
                 },
             },
         },

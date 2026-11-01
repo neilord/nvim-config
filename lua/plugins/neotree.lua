@@ -69,9 +69,20 @@ return {
                 hide_gitignored = false,
                 never_show = {
                     ".DS_Store",
+                    ".git",
                 },
             },
             scan_mode = "deep",
+            -- The tree shows git-ignored files, and neo-tree passes that on to its search as fd --no-ignore,
+            -- which floods `/` and `#` with node_modules. Search still respects .gitignore.
+            find_args = function(cmd, _, _, args)
+                if cmd ~= "fd" and cmd ~= "fdfind" then
+                    return args
+                end
+                args = vim.tbl_filter(function(arg) return arg ~= "--no-ignore" end, args)
+                vim.list_extend(args, { "--exclude", ".git" })
+                return args
+            end,
         },
         document_symbols = {
             follow_cursor = true,

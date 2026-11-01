@@ -6,6 +6,16 @@ return {
     event = "BufWritePre",
     cmd = "ConformInfo",
 
+    keys = {
+        {
+            "<leader>lf",
+            -- on demand the language server may format too, unlike on save
+            function() require("conform").format({ async = true, lsp_format = "fallback" }) end,
+            mode = { "n", "x" },
+            desc = "Format File / Selection",
+        },
+    },
+
     init = function()
         -- gq formats with conform too
         vim.o.formatexpr = "v:lua.require'conform'.formatexpr()"

@@ -65,7 +65,7 @@ return {
         { "<leader>,", function() Snacks.picker.buffers() end, desc = "Buffers" },
         { "<leader>sh", function() Snacks.picker.highlights() end, desc = "Highlights" },
         { "<leader>sk", function() Snacks.picker.keymaps() end, desc = "Keymaps" },
-        { "<leader>sc", function() Snacks.picker.files({ cwd = vim.fn.stdpath("config") }) end, desc = "Config" },
+        { "<leader>sc", function() Snacks.picker.files({ cwd = vim.fn.stdpath("config") }) end, desc = "Config Files" },
         { "<leader>sr", function() Snacks.picker.resume() end, desc = "Resume Last Search" },
         { "<leader>sw", function() Snacks.picker.grep_word() end, mode = { "n", "x" }, desc = "Word / Selection" },
         { "<leader>so", function() Snacks.picker.recent() end, desc = "Recent Files" },

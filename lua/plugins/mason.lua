@@ -49,6 +49,6 @@ return {
     end,
 
     keys = {
-        { "<leader>st", "<cmd>Mason<cr>", desc = "External Tools" },
+        { "<leader>st", "<cmd>Mason<cr>", desc = "Mason (external tools)" },
     },
 }

@@ -43,7 +43,7 @@ return {
             map("n", "<leader>hp", gitsigns.preview_hunk_inline, "Preview Hunk")
             map("n", "<leader>hb", function() gitsigns.blame_line({ full = true }) end, "Blame Line")
             map("n", "<leader>hd", gitsigns.diffthis, "Diff File")
-            map("n", "<leader>tb", gitsigns.toggle_current_line_blame, "Toggle Line Blame")
+            map("n", "<leader>tb", gitsigns.toggle_current_line_blame, "Line Blame")
 
             map({ "o", "x" }, "ih", gitsigns.select_hunk, "Hunk")
         end,

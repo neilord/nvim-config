@@ -1,7 +1,7 @@
 return {
     "HiPhish/rainbow-delimiters.nvim",
     init = function()
-        -- colors are defined in tokyonight.lua
+        -- colors are defined in config/theme.lua
         vim.g.rainbow_delimiters = {
             highlight = {
                 "RainbowDelimiter1",

@@ -6,6 +6,7 @@ vim.api.nvim_create_autocmd("VimEnter", {
     callback = function(data)
         if vim.fn.isdirectory(data.file) == 1 then
             vim.cmd.cd(data.file)
+            vim.api.nvim_buf_delete(data.buf, { force = true }) -- the empty directory buffer
             Snacks.picker.files()
         end
     end,
