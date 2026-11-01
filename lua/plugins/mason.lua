@@ -3,6 +3,8 @@ local tools = {
     -- language servers
     "vtsls",
     "biome",
+    "eslint-lsp",
+    "tailwindcss-language-server",
     "html-lsp",
     "css-lsp",
     "json-lsp",
@@ -10,10 +12,15 @@ local tools = {
     "bash-language-server",
     "yaml-language-server",
     "pyright",
+    "ruff",
     "phpactor",
     -- formatters
     "stylua",
     "shfmt",
+    "prettier",
+    -- debug adapters, see plugins/dap.lua
+    "js-debug-adapter",
+    "debugpy",
 }
 
 return {

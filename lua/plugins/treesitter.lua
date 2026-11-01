@@ -3,6 +3,7 @@ local parsers = {
     "tsx",
     "javascript",
     "json",
+    "jsdoc",
     "html",
     "css",
     "markdown",
@@ -13,12 +14,17 @@ local parsers = {
     "bash",
     "python",
     "lua",
+    "luadoc",
+    "toml",
+    "dockerfile",
     "vim",
     "vimdoc",
     "query",
     "regex",
     "diff",
     "gitcommit",
+    "git_rebase",
+    "gitignore",
 }
 
 return {
@@ -32,10 +38,12 @@ return {
 
         vim.api.nvim_create_autocmd("FileType", {
             group = vim.api.nvim_create_augroup("Treesitter", { clear = true }),
-            desc = "Treesitter highlighting and indentation",
+            desc = "Treesitter highlighting, indentation and folds",
             callback = function(ev)
                 if pcall(vim.treesitter.start, ev.buf) then
                     vim.bo[ev.buf].indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
+                    vim.wo[0][0].foldmethod = "expr"
+                    vim.wo[0][0].foldexpr = "v:lua.vim.treesitter.foldexpr()"
                 end
             end,
         })

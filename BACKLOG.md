@@ -21,17 +21,30 @@ These were active until v2 and now have a successor in the config.
 | akinsho/git-conflict.nvim | `co`/`ct` conflict resolution maps | maybe — fugitive `:Gvdiffsplit!` covers it for now |
 | mbbill/undotree | Undo history tree | built-in `:Undotree` (0.12) |
 | Exafunction/codeium.vim | Inline AI suggestions | none yet — native 0.12 inline completion if wanted |
+| rcarriga/nvim-dap-ui | Debugger panels | igorlfs/nvim-dap-view (back in v2.1 with nvim-dap) |
 | mason-org/mason-lspconfig.nvim | Auto-enable Mason servers | explicit `vim.lsp.enable()` list |
 | folke/lazydev.nvim | Neovim and plugin types for lua_ls | `.emmyrc.json` with emmylua_ls |
 | 3rd/image.nvim, echasnovski/mini.icons | Neo-tree image preview, second icon set | dropped; nvim-web-devicons is the one icon set |
+
+Back in v2.1: nvim-surround, nvim-ts-autotag, which-key.nvim, nvim-dap.
+
+## Not added yet
+
+Things LazyVim or kickstart ship that this config leaves out for now.
+
+| Plugin | What it does | Why not yet |
+|---|---|---|
+| nvim-neotest/neotest | Run tests from the editor with results in signs | Vitest/Jest can already be debugged per file; add if test runs from the editor become a habit |
+| folke/persistence.nvim | Restore the last session per directory | tmux keeps sessions alive |
+| windwp/nvim-autopairs or echasnovski/mini.pairs | Auto-close brackets while typing | blink.cmp already adds brackets after completing a function |
+| mfussenegger/nvim-lint | Run linters that have no language server | eslint, biome and ruff all run as servers |
+| xdebug through php-debug-adapter | PHP debugging | add when there is a PHP project to debug |
 
 ## Editing
 
 | Plugin | What it does | Verdict |
 |---|---|---|
 | windwp/nvim-autopairs | Auto-close brackets and quotes | maybe (or mini.pairs) |
-| kylechui/nvim-surround | `ys`/`cs`/`ds` to add/change/delete surrounding pairs | maybe |
-| windwp/nvim-ts-autotag | Auto-close and rename HTML/JSX tags | maybe — useful for TSX |
 | monaqa/dial.nvim | Smarter `<C-a>`/`<C-x>`: booleans, semver, `&&`/`\|\|` | maybe |
 | Wansmer/treesj | Split/join arguments, objects, arrays | maybe (or mini.splitjoin) |
 | nvim-treesitter/nvim-treesitter-textobjects | `af`/`if` function, `ac` conditional, etc. | maybe — Primeagen uses it |
@@ -81,7 +94,6 @@ These were active until v2 and now have a successor in the config.
 | utilyre/barbecue.nvim | Breadcrumbs winbar | drop — archived |
 | nvim-treesitter/nvim-treesitter-context | Sticky function header at the top | maybe |
 | brenoprata10/nvim-highlight-colors | Color swatches for hex/Tailwind | built-in-ish (0.12 LSP document colors) |
-| folke/which-key.nvim | Popup of pending keymaps | maybe — handy while learning new maps |
 | folke/zen-mode.nvim + twilight.nvim | Distraction-free centered writing | maybe — Primeagen uses it |
 | eandrju/cellular-automaton.nvim | Make-it-rain animations | maybe — for fun |
 | cameron-wags/rainbow_csv.nvim | Color CSV columns | superseded by csvview |
@@ -93,7 +105,6 @@ These were active until v2 and now have a successor in the config.
 |---|---|---|
 | sindrets/diffview.nvim | Tabbed git diff/history viewer | maybe — good for reviewing agent changes |
 | akinsho/toggleterm.nvim | Toggleable terminals | maybe (or built-in `:terminal`) |
-| mfussenegger/nvim-dap + rcarriga/nvim-dap-ui | Debugger | rewriting from scratch in phase 3 |
 
 ## AI
 

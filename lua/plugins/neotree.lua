@@ -24,6 +24,17 @@ return {
     },
 
     opts = {
+        -- moving or renaming a file asks the language server to update its imports
+        event_handlers = {
+            {
+                event = "file_moved",
+                handler = function(data) Snacks.rename.on_rename_file(data.source, data.destination) end,
+            },
+            {
+                event = "file_renamed",
+                handler = function(data) Snacks.rename.on_rename_file(data.source, data.destination) end,
+            },
+        },
         enable_modified_markers = false,
         popup_border_style = "rounded",
         sort_case_insensitive = true,
